@@ -127,6 +127,15 @@ namespace WebAPi.Controllers
             }
             return user;
         }
+
+        [HttpGet("Login")]
+        public async Task<ActionResult<RefreshToken>> Login([FromBody] User user)
+        {
+            user = await _context.User.Include(u => u.Pub)
+                .Where(u => u.EmailAddress == user.EmailAddress).FirstOrDefaultAsync();
+            RefreshToken refreshToken = new RefreshToken(user);
+            return refreshToken;
+        }
         #endregion
     }
 }

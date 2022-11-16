@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ using WebAPi.Models;
 
 namespace WebAPi.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PublishersController : ControllerBase
@@ -108,7 +110,7 @@ namespace WebAPi.Controllers
             return _context.Publisher.Any(e => e.PubId == id);
         }
 
-        #region this reagion of code written by remeaing above was automatically generated
+        #region this region of code written by me remeaing above was automatically generated
         //This region is created by me remaining is autocreated
         #region Eager Loading
         // GET: api/Publishers/5

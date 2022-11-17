@@ -57,7 +57,7 @@ namespace WebAPi.Controllers
             var token = new JwtSecurityToken(_config["Jwt:Issuer"],// an open standard to pass data between client and server, and enables you to transmit data back and forth between the server and the consumers in a secure manner.
               _config["Jwt:Audience"],
               claims,
-              expires: DateTime.Now.AddMinutes(15),
+              expires: DateTime.Now.AddMinutes(1),//this used to refresh or regenerate the token after some time span
               signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);//JwtSecurityTokenHandler Converts a string into an instance of JwtSecurityToken. 

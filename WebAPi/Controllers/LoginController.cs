@@ -11,7 +11,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using WebAPi.Models;
-//For more https://www.codemag.com/Article/2105051/Implementing-JWT-Authentication-in-ASP.NET-Core-5
+//For more /*https://www.akana.com/blog/what-is-jwt*/
 namespace WebAPi.Controllers
 {
     [Route("api/[controller]")]
@@ -19,12 +19,12 @@ namespace WebAPi.Controllers
     public class LoginController : ControllerBase
     {
         private IConfiguration _config;
-
+        private webapiContext _webapicontext;
         public LoginController(IConfiguration config)//IConfiguration interface is used to read Settings and Connection Strings from AppSettings.
         {
             _config = config;
         }
-
+        
         [AllowAnonymous]
         [HttpPost]
         public IActionResult Login([FromBody] UserLogin userLogin)//This method is used for login authentication, and I use the userlogin model because I only used the username and password when using login.  
@@ -47,11 +47,11 @@ namespace WebAPi.Controllers
 
             var claims = new[]//Using both the claim type and claim value in policy based authorization
             {
-                new Claim(ClaimTypes.NameIdentifier, user.Username),
-                new Claim(ClaimTypes.Email, user.EmailAddress),
-                new Claim(ClaimTypes.GivenName, user.GivenName),
-                new Claim(ClaimTypes.Surname, user.Surname),
-                new Claim(ClaimTypes.Role, user.Role)
+                new Claim(ClaimTypes.NameIdentifier, user.Username),// Claims are used to transmit information between two parties.What these claims are depends on the use case at hand. For example, a claim may assert who issued the token, how long it is valid for, or what permissions the client has been granted.
+                new Claim(ClaimTypes.Email, user.EmailAddress),   //
+                new Claim(ClaimTypes.GivenName, user.GivenName),  //
+                new Claim(ClaimTypes.Surname, user.Surname),      //
+                new Claim(ClaimTypes.Role, user.Role)             //
             };
 
             var token = new JwtSecurityToken(_config["Jwt:Issuer"],// an open standard to pass data between client and server, and enables you to transmit data back and forth between the server and the consumers in a secure manner.
